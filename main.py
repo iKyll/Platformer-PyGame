@@ -24,6 +24,9 @@ screen = pygame.display.set_mode(resolution)
 background = pygame.Surface(resolution)
 background.fill((255, 255, 255))
 
+bottom_border = pygame.transform.scale(pygame.image.load(os.path.join(sys.path[0], "assets\\gradient.jfif")), (1800, 100))
+
+
 clock = pygame.time.Clock()
 player = player.Player()
 
@@ -88,12 +91,16 @@ if __name__ == "__main__":
 	
 	score = 0
 	score_text = myfont.render(str(score), False, (0, 0, 0))
+
+	player.rect.x = int(screen.get_width() / 2)
+	player.rect.y = int(screen.get_height() / 2)
 	
 	running = True
 
 	while running: 
 
 		screen.blit(background, (0,0))
+		screen.blit(bottom_border, (-100, 610))
 		screen.blit(score_text,(40, 25))
 		spritegroup.draw(screen)
 		met_spritegroup.draw(screen)
@@ -107,9 +114,12 @@ if __name__ == "__main__":
 		if player.rect.y <= 0:
 			player.gravity = 1
 
+		# Bottom border
+		if player.rect.y >= resolution[1] - 90:
+			ResetEndless()
+
 		player.velocity = [player.velocity_x, player.gravity]
 		player.rect = player.rect.move(player.velocity)
-
 
 		for meteor in met_spritegroup:
 			# Check if not in screen
@@ -128,8 +138,7 @@ if __name__ == "__main__":
 
 			# Check if collide with the player
 			if pygame.sprite.collide_circle(player, meteor) == True:
-				# ResetEndless()
-				pass # Remove
+				ResetEndless()
 
 		if timer <= 0:
 			new_star = star.Star(random.randint(10, resolution[0]), random.randint(50, resolution[1] - 50))

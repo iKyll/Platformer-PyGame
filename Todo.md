@@ -8,6 +8,10 @@ Créer un mode "endless":
 		Créer un compteur de score (+ ajouter meilleur score ) // Fait
 	Ajouter la bordure en haut de la fenêtre et celle du bas qui tue l'alien // Celle du haut faite
 
+
+	Dégradé de couleur == Presque Impossible (Pygame gère pas)
+	 	// Importation Image
+
 Changer le fond pour un fond étoilé
 Créer un menu pricipal
 Créer un menu pause
