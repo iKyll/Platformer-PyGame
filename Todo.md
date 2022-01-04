@@ -13,8 +13,8 @@ Créer un mode "endless":
 	 	// Importation Image
 
 Changer le fond pour un fond étoilé
-Créer un menu pricipal
-Créer un menu pause
+Créer un menu principal // Fait
+Créer un menu pause // Fait
 Créer des niveaux:
 	Créer des platformes
 	Créer des piques
