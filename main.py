@@ -82,7 +82,8 @@ def ResetEndless():
 
     try:
         if file == None:
-            file = open(os.path.join(sys.path[0], "best_score.txt"), "w")
+            pass
+            # file = open(os.path.join(sys.path[0], "best_score.txt"), "w")
         # file.write(str(score))
     except Exception as e:
         print(f"Internal Error: {e}")
@@ -91,8 +92,7 @@ def ResetEndless():
 
     timer = max_timer
     met_timer = met_maxtimer
-    score = 0
-    score_text = score_font.render(str(score), False, (0, 0, 0))
+    game.ResetScore()
 
 class EndlessMode():
 
@@ -104,12 +104,15 @@ class EndlessMode():
         self.met_maxtimer = met_maxtimer
         self.spritegroup = spritegroup
         self.met_spritegroup = met_spritegroup
+        self.score_text = score_font.render(str(0), False, (0, 0, 0))
 
-        self.Game()
+    def ResetScore(self):
+        self.score = 0
+        self.score_text = score_font.render(str(0), False, (0, 0, 0))
 
     def Game(self):
         self.score = 0
-        score_text = score_font.render(str(self.score), False, (0, 0, 0))
+        self.score_text = score_font.render(str(0), False, (0, 0, 0))
 
         running = True
 
@@ -117,7 +120,7 @@ class EndlessMode():
 
             screen.blit(background, (0,0))
             screen.blit(bottom_border, (-100, 610))
-            screen.blit(score_text,(40, 25))
+            screen.blit(self.score_text,(40, 25))
             self.spritegroup.draw(screen)
             self.met_spritegroup.draw(screen)
             screen.blit(self.player.image, self.player.rect)
@@ -188,7 +191,7 @@ class EndlessMode():
             for test_star in self.spritegroup:
                 if pygame.sprite.collide_circle(self.player, test_star) == True:
                     self.score += 1
-                    score_text = score_font.render(str(self.score), False, (0, 0, 0))
+                    self.score_text = score_font.render(str(self.score), False, (0, 0, 0))
                     self.spritegroup.remove(test_star)
 
             for event in pygame.event.get():
@@ -215,6 +218,7 @@ class EndlessMode():
             clock.tick(60)
 
 def main_menu():
+    global game
 
     endless_button = pygame.Rect((int(resolution[0] / 2 - 100), int(resolution[1] / 2 - 120)),(200, 100))
     levels_button = pygame.Rect((int(resolution[0] / 2 - 100), int(resolution[1] / 2)), (200, 100)) 
@@ -247,7 +251,8 @@ def main_menu():
 
         if endless_button.collidepoint((mx ,my)):
             if isClicking:
-                EndlessMode(player, timer, max_timer, met_timer, met_maxtimer, spritegroup, met_spritegroup)
+                game = EndlessMode(player, timer, max_timer, met_timer, met_maxtimer, spritegroup, met_spritegroup)
+                game.Game()
         if levels_button.collidepoint((mx ,my)):
             if isClicking:
                 pass

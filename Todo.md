@@ -22,5 +22,3 @@ Créer des niveaux:
 	Créer un compteur de morts
 
 Délai entre deux météorites baisse tout les 5 de score
-
-
